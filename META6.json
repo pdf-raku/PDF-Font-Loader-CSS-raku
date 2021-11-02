@@ -1,0 +1,31 @@
+{
+  "auth": "cpan:WARRINGD",
+  "authors": [
+    "David Warring"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+    "CSS::Properties",
+    "PDF::Font::Loader",
+    "URI"
+  ],
+  "description": "CSS @font-face font loading for the PDF tool-chain",
+  "license": "Artistic-2.0",
+  "name": "PDF::Font::Loader::CSS",
+  "raku": "6.*",
+  "provides": {
+    "PDF::Font::Loader::CSS": "lib/PDF/Font/Loader/CSS.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "git://github.com/pdf-raku/PDF-Font-Loader-CSS-raku.git",
+  "tags": [
+    "pdf",
+    "font",
+    "css"
+  ],
+  "test-depends": [
+  ],
+  "version": "0.0.1"
+}
