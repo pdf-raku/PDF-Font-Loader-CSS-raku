@@ -8,9 +8,10 @@
   "depends": [
     "CSS::Properties",
     "PDF::Font::Loader",
+    "CSS::Font::Resources:v<0.0.6+>",
     "URI"
   ],
-  "description": "CSS @font-face font loading for the PDF tool-chain",
+  "description": "CSS @font-face aware font loading for the PDF tool-chain",
   "license": "Artistic-2.0",
   "name": "PDF::Font::Loader::CSS",
   "raku": "6.*",

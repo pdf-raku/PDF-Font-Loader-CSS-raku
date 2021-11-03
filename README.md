@@ -44,15 +44,17 @@ say $font-obj.font-name; # DejaVuSans-BoldOblique;
 
 ## Description
 
-This module extends the PDF::Font::Loader. Implementing CSS `@font-face` driven loading of PDF fonts.
+This module extends PDF::Font::Loader, adding `@font-face` attributes and rules to enable CSS
+compatible font selection.
 
-In particular, it extends the `find-font()` and `load-font()` methods adding CSS aware multi candidates.
+In particular, it extends the `find-font()` and `load-font()` methods; adding multi candidates to select
+from a list of `@font-face` font descriptors.
 
 ## Methods
 
 ### find-font
 
-    multi method find-font: CSS::Font:D() :$font returns Str
+    multi method find-font( CSS::Font:D() :$font) returns Str
 
 Returns a matching font file name. This will either been a local file, or
 a temporary file, fetched from a remote URI.
@@ -64,9 +66,9 @@ a temporary file, fetched from a remote URI.
 Returns a matching font file name. This will either been a local file, or
 a temporary file, fetched from a remote URI.
 
+### source
 
-## Attributes
+   method source CSS::Font:D() :$font() returns CSS::Font::Resources::Source
 
-## has Hash:D $.cache;
-
-Fonts are cached on the $font.Str key.
+Returns a matching source for the font. This is the first matching font of an acceptable
+PDF format (`opentype`, `truetype`, `postscript`, or `cff`).
