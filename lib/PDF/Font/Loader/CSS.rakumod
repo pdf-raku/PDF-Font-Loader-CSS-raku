@@ -13,10 +13,11 @@ my constant Resources = CSS::Font::Resources;
 my constant Source = CSS::Font::Resources::Source;
 
 has CSS::Font::Descriptor @.font-face;
-has URI() $.base-url = './';
+has URI() $.base-url is rw = './';
+has Str $.font-family = 'serif'; # default font family
 
 method source(CSS::Font:D :$font! --> Source) {
-    Resources.source: :$font, :$!base-url, :@!font-face, :formats('opentype'|'truetype'|'postscript'|'cff');
+    Resources.source: :$font, :$!base-url, :@!font-face, :$!font-family, :formats('opentype'|'truetype'|'postscript'|'cff');
 }
 
 multi method load-font(CSS::Font:D() :$font!, |c) {
