@@ -1,5 +1,5 @@
 {
-  "auth": "cpan:WARRINGD",
+  "auth": "zef:dwarring",
   "authors": [
     "David Warring"
   ],
@@ -14,10 +14,11 @@
   "description": "CSS driven font loading for the PDF tool-chain",
   "license": "Artistic-2.0",
   "name": "PDF::Font::Loader::CSS",
-  "raku": "6.*",
+  "perl": "6.d",
   "provides": {
     "PDF::Font::Loader::CSS": "lib/PDF/Font/Loader/CSS.rakumod"
   },
+  "raku": "6.*",
   "resources": [
   ],
   "source-url": "git://github.com/pdf-raku/PDF-Font-Loader-CSS-raku.git",
