@@ -61,10 +61,16 @@ a temporary file, fetched from a remote URI.
 
 ### load-font
 
-    multi method load-font( CSS::Font:D() :$font) returns Font::Loader::FontObj
+    multi method load-font( CSS::Font:D() :$font, Bool :$core-font-fallback) returns Font::Loader::FontObj
 
-Returns a matching font file name. This will either been a local file, or
-a temporary file, fetched from a remote URI.
+Finds and loads a matching font object.
+
+If none of the `@font-face` rules were matched:
+
+- if `:$core-font-fallback` is True, the best matching core font is returned as a `PDF::Content::CoreFont` object.
+- otherwise the best matching system font is found, and returned as a `PDF::FontLoader::FontObj` object.
+
+Note: If you don't have `fontconfig` and the `fc-match` command installed on your system, `:$core-font-font-fallback` should be set to True to disable `fontconfig`.
 
 ### source
 

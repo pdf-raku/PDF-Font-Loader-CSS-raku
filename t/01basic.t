@@ -1,8 +1,9 @@
 use Test;
-plan 4;
+plan 14;
 use CSS::Font::Descriptor;
 use PDF::Font::Loader::CSS;
 use PDF::Font::Loader::FontObj;
+use PDF::Content::FontObj;
 
 my @decls = q:to<END>.split(/^^'---'$$/);
         font-family: "DejaVu Sans";
@@ -24,11 +25,26 @@ my @decls = q:to<END>.split(/^^'---'$$/);
 
 my CSS::Font::Descriptor @font-face = @decls.map: -> $style {CSS::Font::Descriptor.new: :$style};
 
-my PDF::Font::Loader::CSS $font-loader .= new: :@font-face, :base-url<t/>;
+for (False, True) -> $core-font-fallback {
+    my PDF::Font::Loader::CSS $font-loader .= new: :@font-face, :base-url<t/>, :$core-font-fallback;
 
-my Str $font = $font-loader.find-font: :font("bold italic 12pt DejaVu Sans");
-is $font, 't/fonts/DejaVuSans-BoldOblique.ttf';
-my $font-obj = $font-loader.load-font: :font("bold italic 12pt DejaVu Sans");
-ok $font-obj.defined;
-isa-ok $font-obj, "PDF::Font::Loader::FontObj";
-is $font-obj.font-name, "DejaVuSans-BoldOblique";
+    my Str $font = $font-loader.find-font: :font("bold italic 12pt DejaVu Sans");
+    is $font, 't/fonts/DejaVuSans-BoldOblique.ttf';
+    my PDF::Content::FontObj $font-obj = $font-loader.load-font: :font("bold italic 12pt DejaVu Sans");
+    ok $font-obj.defined;
+    isa-ok $font-obj, "PDF::Font::Loader::FontObj";
+    is $font-obj.font-name, "DejaVuSans-BoldOblique";
+
+    my $class = $core-font-fallback ?? 'PDF::Content::Font::CoreFont' !! 'PDF::Font::Loader::FontObj';
+    $font-obj = $font-loader.load-font: :font("bold italic 12pt Times-Roman");
+    isa-ok $font-obj, $class, "load-font() {$core-font-fallback ?? 'with' !! 'without'} core-font fallback";
+    if $core-font-fallback {
+        is $font-obj.font-name, 'Times-Italic', 'core-font name';
+    }
+
+    $font-obj = $font-loader.load-font: :font("bold italic 12pt Misc");
+    isa-ok $font-obj, $class, "load-font() {$core-font-fallback ?? 'with' !! 'without'} core-font fallback";
+    if $core-font-fallback {
+        is $font-obj.font-name, 'Helvetica-Oblique', 'core-font name';
+    }
+}
