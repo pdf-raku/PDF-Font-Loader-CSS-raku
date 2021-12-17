@@ -1,13 +1,13 @@
 ## Name
 
-PDF::Font::Loader::CSS
+PDF::Font::Manager
 
 ## Synopsis
 
 ```raku
 use CSS::Stylesheet;
 use PDF::Font::Loader::FontObj;
-use PDF::Font::Loader::CSS;
+use PDF::Font::Manager;
 
 my CSS::Stylesheet $css .= parse: q:to<END>;
     @font-face {
@@ -34,7 +34,7 @@ my CSS::Stylesheet $css .= parse: q:to<END>;
 
 my CSS::Font::Descriptor @font-face = $css.font-face;
 
-my PDF::Font::Loader::CSS $font-loader .= new: :@font-face, :base-url<t/>;
+my PDF::Font::Manager $font-loader .= new: :@font-face, :base-url<t/>;
 
 my CSS::Font() $font = "bold italic 12pt DejaVu Sans";
 say $font-loader.find-font(:$font); # t/fonts/DejaVuSans-BoldOblique.ttf';
@@ -44,8 +44,8 @@ say $font-obj.font-name; # DejaVuSans-BoldOblique;
 
 ## Description
 
-This module extends PDF::Font::Loader, adding `@font-face` attributes and rules to enable CSS
-compatible font selection.
+This is based on PDF::Font::Loader, but adds the ability to load and manage fonts
+via `@font-face` CSS font descriptor declaration.
 
 In particular, it extends the `find-font()` and `load-font()` methods; adding multi candidates to
 handle CSS font properties and select from a list of `@font-face` font descriptors.

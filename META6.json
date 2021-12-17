@@ -16,12 +16,12 @@
   "name": "PDF::Font::Loader::CSS",
   "perl": "6.d",
   "provides": {
-    "PDF::Font::Loader::CSS": "lib/PDF/Font/Loader/CSS.rakumod"
+    "PDF::Font::Manager": "lib/PDF/Font/Manager.rakumod"
   },
   "raku": "6.*",
   "resources": [
   ],
-  "source-url": "git://github.com/pdf-raku/PDF-Font-Loader-CSS-raku.git",
+  "source-url": "git://github.com/pdf-raku/PDF-Font-Manager-raku.git",
   "tags": [
     "pdf",
     "font",

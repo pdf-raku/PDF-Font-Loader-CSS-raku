@@ -1,6 +1,6 @@
 use PDF::Font::Loader;
 
-unit class PDF::Font::Loader::CSS:ver<0.0.1>
+unit class PDF::Font::Manager:ver<0.0.1>
     is PDF::Font::Loader;
 
 use CSS::Font;

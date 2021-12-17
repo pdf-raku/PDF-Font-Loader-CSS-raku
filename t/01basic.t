@@ -1,7 +1,7 @@
 use Test;
 plan 14;
 use CSS::Font::Descriptor;
-use PDF::Font::Loader::CSS;
+use PDF::Font::Manager;
 use PDF::Font::Loader::FontObj;
 use PDF::Content::FontObj;
 
@@ -26,7 +26,7 @@ my @decls = q:to<END>.split(/^^'---'$$/);
 my CSS::Font::Descriptor @font-face = @decls.map: -> $style {CSS::Font::Descriptor.new: :$style};
 
 for (False, True) -> $core-font-fallback {
-    my PDF::Font::Loader::CSS $font-loader .= new: :@font-face, :base-url<t/>, :$core-font-fallback;
+    my PDF::Font::Manager $font-loader .= new: :@font-face, :base-url<t/>, :$core-font-fallback;
 
     my Str $font = $font-loader.find-font: :font("bold italic 12pt DejaVu Sans");
     is $font, 't/fonts/DejaVuSans-BoldOblique.ttf';
