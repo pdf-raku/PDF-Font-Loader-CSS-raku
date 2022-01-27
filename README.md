@@ -1,13 +1,13 @@
 ## Name
 
-PDF::Font::Manager
+PDF::Font::Loader::CSS
 
 ## Synopsis
 
 ```raku
 use CSS::Stylesheet;
 use PDF::Font::Loader::FontObj;
-use PDF::Font::Manager;
+use PDF::Font::Loader::CSS;
 
 my CSS::Stylesheet $css .= parse: q:to<END>;
     @font-face {
@@ -34,7 +34,7 @@ my CSS::Stylesheet $css .= parse: q:to<END>;
 
 my CSS::Font::Descriptor @font-face = $css.font-face;
 
-my PDF::Font::Manager $font-loader .= new: :@font-face, :base-url<t/>;
+my PDF::Font::Loader::CSS $font-loader .= new: :@font-face, :base-url<t/>;
 
 my CSS::Font() $font = "bold italic 12pt DejaVu Sans";
 say $font-loader.find-font(:$font); # t/fonts/DejaVuSans-BoldOblique.ttf';
@@ -67,10 +67,10 @@ Finds and loads a matching font object.
 
 If none of the `@font-face` rules were matched:
 
-- if `:$core-font-fallback` is True, the best matching core font is returned as a `PDF::Content::CoreFont` object.
-- otherwise the best matching system font is found, and returned as a `PDF::FontLoader::FontObj` object.
+- if `:$core-font-fallback` is True, the best matching PDF core font is returned as a `PDF::Content::CoreFont` object.
+- otherwise the best matching system font is found, and returned as a `PDF::Font::Loader::FontObj` object.
 
-Note: If you don't have `fontconfig` and the `fc-match` command installed on your system, `:$core-font-font-fallback` should be set to True to disable `fontconfig`.
+Note: If you don't have the `FontConfig` Raku module installed, `:$core-font-font-fallback` defaults to True.
 
 ### source
 
